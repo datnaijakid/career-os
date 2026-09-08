@@ -1,0 +1,203 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  profile      Profile?
+  resumes      Resume[]
+  applications Application[]
+  jobMatches   JobMatch[]
+}
+
+model EmailVerification {
+  id           String   @id @default(uuid())
+  email        String
+  code         String
+  name         String?
+  passwordHash String
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+
+  @@index([email])
+}
+
+model Profile {
+  id                String          @id @default(uuid())
+  userId            String          @unique
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName          String?
+  email             String?
+  phone             String?
+  location          String?
+  linkedinUrl       String?
+  githubUrl         String?
+  portfolioUrl      String?
+  workAuthorization String?
+  expectedSalary    String?
+  confirmedAt       DateTime?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  educations        Education[]
+  experiences       Experience[]
+  projects          Project[]
+  skills            Skill[]
+  certifications    Certification[]
+  customAttributes  CustomAttribute[]
+}
+
+model Resume {
+  id                String   @id @default(uuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fileName          String
+  fileSize          Int
+  fileType          String
+  rawText           String
+  extractedDataJson String?
+  createdAt         DateTime @default(now())
+}
+
+model Education {
+  id           String   @id @default(uuid())
+  profileId    String
+  profile      Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  institution  String
+  degree       String
+  fieldOfStudy String?
+  startDate    String?
+  endDate      String?
+  gpa          String?
+  coursework   String?
+}
+
+model Experience {
+  id           String   @id @default(uuid())
+  profileId    String
+  profile      Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  company      String
+  role         String
+  startDate    String?
+  endDate      String?
+  description  String?
+  achievements String?
+}
+
+model Project {
+  id           String   @id @default(uuid())
+  profileId    String
+  profile      Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  title        String
+  description  String?
+  technologies String?
+  link         String?
+}
+
+model Skill {
+  id        String  @id @default(uuid())
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  name      String
+  category  String  @default("other") // languages, frameworks, tools, databases, cloud, aiml, other
+}
+
+model Certification {
+  id         String  @id @default(uuid())
+  profileId  String
+  profile    Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  name       String
+  issuer     String?
+  issueDate  String?
+}
+
+model CustomAttribute {
+  id        String  @id @default(uuid())
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  key       String
+  label     String
+  value     String
+}
+
+model Job {
+  id                    String        @id @default(uuid())
+  title                 String
+  company               String
+  location              String?
+  remoteType            String?       // Remote, Hybrid, On-site
+  employmentType        String?       // Internship, Full-time, Part-time, Contract
+  url                   String?
+  description           String
+  salaryRange           String?
+  deadline              String?
+  requiredSkills        String?       // Stored as JSON or comma-separated
+  preferredSkills       String?
+  minExperience         String?
+  educationRequirements String?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  jobMatches            JobMatch[]
+  applications          Application[]
+}
+
+model JobMatch {
+  id                    String   @id @default(uuid())
+  userId                String
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobId                 String
+  job                   Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  score                 Int
+  eligible              Boolean  @default(false)
+  strengths             String?  // JSON array
+  missingRequirements   String?  // JSON array
+  uncertainRequirements String?  // JSON array
+  explanation           String?
+  createdAt             DateTime @default(now())
+}
+
+model Application {
+  id          String              @id @default(uuid())
+  userId      String
+  user        User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobId       String
+  job         Job                 @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  status      String              @default("SAVED") // SAVED, PREPARING, NEEDS_INFO, READY_FOR_REVIEW, SUBMITTED, INTERVIEW, OFFER, REJECTED, WITHDRAWN
+  submittedAt DateTime?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  answers     ApplicationAnswer[]
+  events      ApplicationEvent[]
+}
+
+model ApplicationAnswer {
+  id            String      @id @default(uuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  question      String
+  answer        String
+  status        String      @default("DRAFT") // DRAFT, ACCEPTED, EDITED
+  groundedFacts String?     // JSON array of profile facts used
+}
+
+model ApplicationEvent {
+  id            String      @id @default(uuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  type          String
+  description   String
+  createdAt     DateTime    @default(now())
+}
