@@ -43,10 +43,13 @@ export async function sendVerificationEmail({
     payload.accessToken = privateKey;
   }
 
+  const origin = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+
   const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Origin': origin
     },
     body: JSON.stringify(payload)
   });
@@ -110,10 +113,13 @@ export async function sendPasswordResetEmail({
     payload.accessToken = privateKey;
   }
 
+  const origin = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+
   const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Origin': origin
     },
     body: JSON.stringify(payload)
   });
