@@ -34,6 +34,17 @@ model EmailVerification {
   @@index([email])
 }
 
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  email     String
+  code      String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
+
 model Profile {
   id                String          @id @default(uuid())
   userId            String          @unique
