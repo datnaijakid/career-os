@@ -22,43 +22,47 @@ export async function POST(request: Request) {
       where: { email: normalizedEmail }
     });
 
-    if (user) {
-      // 2. Generate 6-digit numeric code and cryptographically secure token
-      const code = Math.floor(100000 + Math.random() * 900000).toString();
-      const token = crypto.randomBytes(32).toString('hex');
-      const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 mins
-
-      // Clean up previous reset requests for this email
-      await db.passwordResetToken.deleteMany({
-        where: { email: normalizedEmail }
-      });
-
-      // Save token & code in Neon PostgreSQL
-      await db.passwordResetToken.create({
-        data: {
-          email: normalizedEmail,
-          code,
-          token,
-          expiresAt
-        }
-      });
-
-      // 3. Dispatch via EmailJS
-      const origin = request.headers.get('origin') || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-      const resetUrl = `${origin}/reset-password?token=${token}&email=${encodeURIComponent(normalizedEmail)}`;
-
-      await sendPasswordResetEmail({
-        toEmail: normalizedEmail,
-        toName: user.name,
-        code,
-        resetUrl
-      });
+    if (!user) {
+      return NextResponse.json(
+        { error: 'No account found with this email address. Please check for typos or sign up.' },
+        { status: 404 }
+      );
     }
 
-    // Always return success for privacy and anti-enumeration
+    // 2. Generate 6-digit numeric code and cryptographically secure token
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 mins
+
+    // Clean up previous reset requests for this email
+    await db.passwordResetToken.deleteMany({
+      where: { email: normalizedEmail }
+    });
+
+    // Save token & code in Neon PostgreSQL
+    await db.passwordResetToken.create({
+      data: {
+        email: normalizedEmail,
+        code,
+        token,
+        expiresAt
+      }
+    });
+
+    // 3. Dispatch via EmailJS
+    const origin = request.headers.get('origin') || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const resetUrl = `${origin}/reset-password?token=${token}&email=${encodeURIComponent(normalizedEmail)}`;
+
+    await sendPasswordResetEmail({
+      toEmail: normalizedEmail,
+      toName: user.name,
+      code,
+      resetUrl
+    });
+
     return NextResponse.json({
       success: true,
-      message: 'If an account with that email exists, password reset instructions have been sent.'
+      message: 'Password reset code has been sent to your email.'
     });
   } catch (err: any) {
     console.error('Forgot password error:', err.message);
