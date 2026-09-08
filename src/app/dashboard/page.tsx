@@ -14,7 +14,8 @@ import {
   ExternalLink,
   ArrowRight,
   UserCheck,
-  AlertCircle
+  AlertCircle,
+  Trash2
 } from 'lucide-react';
 import { APPLICATION_STATUSES, ApplicationStatusType } from '@/lib/constants';
 
@@ -24,6 +25,31 @@ export default function DashboardPage() {
   const [matches, setMatches] = useState<any[]>([]);
   const [applications, setApplications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [deleteMessage, setDeleteMessage] = useState<string | null>(null);
+
+  const handleDeleteMatch = async (matchId: string, title: string) => {
+    if (!confirm(`Are you sure you want to remove the recommendation for "${title}"?`)) {
+      return;
+    }
+
+    const previous = [...matches];
+    setMatches(matches.filter(m => m.id !== matchId));
+
+    try {
+      const res = await fetch(`/api/jobs/matches/${matchId}`, {
+        method: 'DELETE'
+      });
+      if (!res.ok) {
+        throw new Error('Failed to delete job recommendation');
+      }
+      setDeleteMessage(`Removed recommendation for "${title}".`);
+      setTimeout(() => setDeleteMessage(null), 3000);
+    } catch (err) {
+      console.error('Delete match error:', err);
+      setMatches(previous);
+      alert('Could not remove recommendation. Please try again.');
+    }
+  };
 
   useEffect(() => {
     Promise.all([
@@ -188,6 +214,24 @@ export default function DashboardPage() {
             </Link>
           </div>
 
+          {deleteMessage && (
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              padding: '0.65rem 0.9rem',
+              background: 'var(--success-bg)',
+              border: '1px solid rgba(16, 185, 129, 0.3)',
+              borderRadius: 'var(--radius-md)',
+              color: 'var(--success)',
+              fontSize: '0.85rem',
+              marginBottom: '1rem'
+            }}>
+              <CheckCircle2 size={15} />
+              <span>{deleteMessage}</span>
+            </div>
+          )}
+
           {matches.length === 0 ? (
             <div className="glass-panel" style={{ padding: '2.5rem', textAlign: 'center' }}>
               <Building2 size={36} color="var(--text-muted)" style={{ margin: '0 auto 0.75rem auto' }} />
@@ -201,7 +245,7 @@ export default function DashboardPage() {
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {matches.slice(0, 5).map((match) => (
+              {matches.map((match) => (
                 <div key={match.id} className="glass-panel" style={{ padding: '1.25rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.75rem' }}>
                     <div>
@@ -234,7 +278,27 @@ export default function DashboardPage() {
                     </div>
                   )}
 
-                  <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
+                  <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteMatch(match.id, match.title)}
+                      title="Remove from recommendations"
+                      className="btn btn-sm"
+                      style={{
+                        background: 'rgba(239, 68, 68, 0.08)',
+                        border: '1px solid rgba(239, 68, 68, 0.2)',
+                        color: 'var(--danger)',
+                        fontSize: '0.8rem',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.35rem',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <Trash2 size={13} />
+                      <span>Dismiss</span>
+                    </button>
+
                     <Link
                       href={`/apply?url=${encodeURIComponent(match.url || '')}`}
                       className="btn btn-sm btn-outline"
