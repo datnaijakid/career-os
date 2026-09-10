@@ -9,3 +9,4 @@ dev.db-journal
 *.log
 scratch/
 *.tsbuildinfo
+PROJECT_EXPLANATION.md

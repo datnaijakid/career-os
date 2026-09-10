@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import {
   Send,
-  Sparkles,
+  Search,
   CheckCircle2,
   AlertCircle,
   HelpCircle,
@@ -421,7 +421,7 @@ function ApplyContent() {
               className="btn btn-primary btn-lg"
               style={{ width: '100%', marginTop: '0.5rem' }}
             >
-              <Sparkles size={18} />
+              <Search size={18} />
               <span>Analyze Job & Check Match</span>
             </button>
           </form>
@@ -821,18 +821,18 @@ function ApplyContent() {
         <div className="glass-panel animate-fade-in" style={{ padding: '2.5rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <div style={{
-              width: '54px',
-              height: '54px',
-              borderRadius: '14px',
-              background: 'rgba(236, 72, 153, 0.15)',
+              width: '46px',
+              height: '46px',
+              borderRadius: 'var(--radius-md)',
+              background: 'var(--bg-tertiary)',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#ec4899',
+              color: 'var(--text-primary)',
               marginBottom: '1rem',
-              border: '1px solid rgba(236, 72, 153, 0.3)'
+              border: '1px solid var(--border-subtle)'
             }}>
-              <Lock size={28} />
+              <Lock size={22} />
             </div>
             <h1 style={{ fontSize: '2rem', marginBottom: '0.4rem' }}>Final Verification Gate</h1>
             <p style={{ color: 'var(--text-secondary)', maxWidth: '640px', margin: '0 auto' }}>
@@ -939,12 +939,12 @@ function ApplyContent() {
               {submitting ? (
                 <>
                   <RefreshCw size={18} className="animate-spin" />
-                  <span>Applying Automatically...</span>
+                  <span>Dispatching Application...</span>
                 </>
               ) : (
                 <>
-                  <Sparkles size={18} />
-                  <span>Authorize & Apply For Me</span>
+                  <Send size={18} />
+                  <span>Authorize & Dispatch Application</span>
                 </>
               )}
             </button>

@@ -7,7 +7,7 @@ import {
   FileText,
   CheckCircle2,
   AlertCircle,
-  Sparkles,
+  RefreshCw,
   ArrowRight,
   Plus,
   Trash2,
@@ -263,13 +263,13 @@ function ResumeContent() {
             >
               {statusStep === 'analyzing' ? (
                 <>
-                  <Sparkles size={16} className="animate-spin" />
-                  <span>AI Parsing Facts...</span>
+                  <RefreshCw size={16} className="animate-spin" />
+                  <span>Extracting Facts...</span>
                 </>
               ) : (
                 <>
-                  <Sparkles size={16} />
-                  <span>Analyze Resume</span>
+                  <FileText size={16} />
+                  <span>Extract Resume Facts</span>
                 </>
               )}
             </button>
@@ -497,7 +497,7 @@ function ResumeContent() {
           {/* Experience Card */}
           <div className="glass-panel" style={{ padding: '2rem' }}>
             <h3 style={{ fontSize: '1.15rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Briefcase size={20} color="#ec4899" />
+              <Briefcase size={20} color="#60a5fa" />
               <span>Experience</span>
             </h3>
             {extractedData.experience.map((exp, idx) => (

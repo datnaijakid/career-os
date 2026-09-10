@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Sparkles, FileText, UserCheck, Send, Briefcase, LogOut, LayoutDashboard } from 'lucide-react';
+import { FileText, UserCheck, Send, Briefcase, LogOut, LayoutDashboard } from 'lucide-react';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -53,32 +53,29 @@ export default function Navbar() {
         {/* Brand */}
         <Link href={user ? '/dashboard' : '/'} style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', textDecoration: 'none' }}>
           <div style={{
-            width: '38px',
-            height: '38px',
-            borderRadius: '10px',
-            background: 'var(--accent-gradient)',
+            width: '34px',
+            height: '34px',
+            borderRadius: 'var(--radius-sm)',
+            background: 'var(--bg-tertiary)',
+            border: '1px solid var(--border-hover)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#fff',
-            boxShadow: '0 0 15px rgba(99, 102, 241, 0.4)'
+            color: '#60a5fa'
           }}>
-            <Sparkles size={20} />
+            <Briefcase size={17} />
           </div>
-          <div>
-            <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.03em', color: '#fff' }}>
-              Career<span style={{ color: 'var(--accent-primary)' }}>OS</span>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem' }}>
+            <span style={{ fontSize: '1.15rem', fontWeight: 800, letterSpacing: '-0.03em', color: '#fff' }}>
+              Career<span style={{ color: '#60a5fa' }}>OS</span>
             </span>
             <span style={{
-              fontSize: '0.65rem',
-              fontWeight: 700,
-              background: 'rgba(99, 102, 241, 0.2)',
-              color: '#818cf8',
-              padding: '0.15rem 0.4rem',
-              borderRadius: '4px',
-              marginLeft: '0.4rem',
-              border: '1px solid rgba(99, 102, 241, 0.3)'
-            }}>AI AGENT</span>
+              fontSize: '0.68rem',
+              fontWeight: 600,
+              color: 'var(--text-muted)',
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase'
+            }}>Platform</span>
           </div>
         </Link>
 

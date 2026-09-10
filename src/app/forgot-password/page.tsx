@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Mail, ArrowLeft, CheckCircle2, AlertCircle, KeyRound, Lock, Sparkles } from 'lucide-react';
+import { Mail, ArrowLeft, CheckCircle2, AlertCircle, KeyRound, Lock } from 'lucide-react';
 
 export default function ForgotPasswordPage() {
   const router = useRouter();
@@ -117,18 +117,18 @@ export default function ForgotPasswordPage() {
       <div className="glass-panel" style={{ padding: '2.5rem' }}>
         <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
           <div style={{
-            width: '54px',
-            height: '54px',
-            borderRadius: '14px',
-            background: 'var(--accent-gradient)',
+            width: '42px',
+            height: '42px',
+            borderRadius: 'var(--radius-md)',
+            background: 'var(--bg-tertiary)',
+            border: '1px solid var(--border-subtle)',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#fff',
-            marginBottom: '1rem',
-            boxShadow: '0 0 20px rgba(99, 102, 241, 0.35)'
+            color: '#60a5fa',
+            marginBottom: '1rem'
           }}>
-            <KeyRound size={26} />
+            <KeyRound size={20} />
           </div>
           <h1 style={{ fontSize: '1.75rem', marginBottom: '0.4rem' }}>Reset Password</h1>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>

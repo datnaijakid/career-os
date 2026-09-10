@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
-  Sparkles,
   Briefcase,
   CheckCircle2,
   TrendingUp,
@@ -98,8 +97,8 @@ export default function DashboardPage() {
         marginBottom: '2rem'
       }}>
         <div>
-          <h1 style={{ fontSize: '2.25rem', marginBottom: '0.25rem', color: '#fff' }}>
-            {getGreeting()}, {displayName} 👋
+          <h1 style={{ fontSize: '2.1rem', marginBottom: '0.25rem', color: '#fff' }}>
+            {getGreeting()}, {displayName}
           </h1>
           <p style={{ color: 'var(--text-secondary)' }}>
             Welcome to your career command center. Here is the latest on your applications and job matches.
@@ -126,23 +125,23 @@ export default function DashboardPage() {
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: '1rem',
-          padding: '1.25rem 1.5rem',
-          background: 'rgba(99, 102, 241, 0.12)',
-          border: '1px solid rgba(99, 102, 241, 0.3)',
+          padding: '1.15rem 1.4rem',
+          background: 'var(--bg-secondary)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: 'var(--radius-lg)',
           marginBottom: '2rem'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <Sparkles size={22} color="var(--accent-primary)" />
+            <FileText size={20} color="#60a5fa" />
             <div>
               <div style={{ fontWeight: 700, color: '#fff' }}>Set up your verified candidate profile</div>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                Upload your resume so the AI can extract and match your qualifications to jobs.
+                Upload your resume to extract structured facts and calculate job match scores.
               </p>
             </div>
           </div>
           <Link href="/resume" className="btn btn-sm btn-primary">
-            Upload Resume Now
+            Upload Resume
           </Link>
         </div>
       )}
@@ -155,10 +154,10 @@ export default function DashboardPage() {
         marginBottom: '2.5rem'
       }}>
         <div className="glass-panel" style={{ padding: '1.5rem' }}>
-          <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Matching Jobs
           </div>
-          <div style={{ fontSize: '2.25rem', fontWeight: 800, color: '#fff', marginTop: '0.25rem' }}>
+          <div style={{ fontSize: '2.1rem', fontWeight: 800, color: '#fff', marginTop: '0.25rem' }}>
             {matches.length}
           </div>
           <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
@@ -167,10 +166,10 @@ export default function DashboardPage() {
         </div>
 
         <div className="glass-panel" style={{ padding: '1.5rem' }}>
-          <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Strong Matches
           </div>
-          <div style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--success)', marginTop: '0.25rem' }}>
+          <div style={{ fontSize: '2.1rem', fontWeight: 800, color: 'var(--success)', marginTop: '0.25rem' }}>
             {strongMatchesCount}
           </div>
           <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
@@ -179,10 +178,10 @@ export default function DashboardPage() {
         </div>
 
         <div className="glass-panel" style={{ padding: '1.5rem' }}>
-          <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Applications
           </div>
-          <div style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--accent-primary)', marginTop: '0.25rem' }}>
+          <div style={{ fontSize: '2.1rem', fontWeight: 800, color: '#60a5fa', marginTop: '0.25rem' }}>
             {applications.length}
           </div>
           <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
@@ -191,10 +190,10 @@ export default function DashboardPage() {
         </div>
 
         <div className="glass-panel" style={{ padding: '1.5rem' }}>
-          <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Interviews
           </div>
-          <div style={{ fontSize: '2.25rem', fontWeight: 800, color: '#ec4899', marginTop: '0.25rem' }}>
+          <div style={{ fontSize: '2.1rem', fontWeight: 800, color: '#38bdf8', marginTop: '0.25rem' }}>
             {interviewCount}
           </div>
           <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>

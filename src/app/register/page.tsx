@@ -4,7 +4,6 @@ import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
-  Sparkles,
   Lock,
   Mail,
   User,
@@ -133,25 +132,25 @@ function RegisterForm() {
         {/* Header Branding */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{
-            width: '46px',
-            height: '46px',
-            borderRadius: '12px',
-            background: 'var(--accent-gradient)',
+            width: '42px',
+            height: '42px',
+            borderRadius: 'var(--radius-md)',
+            background: 'var(--bg-tertiary)',
+            border: '1px solid var(--border-subtle)',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#fff',
-            marginBottom: '1rem',
-            boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)'
+            color: '#60a5fa',
+            marginBottom: '1rem'
           }}>
-            {step === 'details' ? <Sparkles size={24} /> : <KeyRound size={24} />}
+            {step === 'details' ? <User size={20} /> : <KeyRound size={20} />}
           </div>
           <h1 style={{ fontSize: '1.75rem', marginBottom: '0.4rem' }}>
             {step === 'details' ? 'Create Account' : 'Verify Your Email'}
           </h1>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
             {step === 'details'
-              ? 'Start your AI-assisted internship & job search'
+              ? 'Start your candidate application pipeline'
               : `Enter the 6-digit code sent to ${email}`}
           </p>
         </div>

@@ -396,7 +396,7 @@ export default function ProfilePage() {
         <div className="glass-panel" style={{ padding: '2rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
             <h2 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Briefcase size={20} color="#ec4899" />
+              <Briefcase size={20} color="#60a5fa" />
               <span>Work & Internship Experience</span>
             </h2>
             <button onClick={addExperience} className="btn btn-sm btn-secondary">

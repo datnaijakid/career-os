@@ -3,7 +3,7 @@
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Sparkles, Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
+import { Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
 
 function LoginForm() {
   const router = useRouter();
@@ -50,18 +50,18 @@ function LoginForm() {
       <div className="glass-panel" style={{ padding: '2.5rem' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{
-            width: '46px',
-            height: '46px',
-            borderRadius: '12px',
-            background: 'var(--accent-gradient)',
+            width: '42px',
+            height: '42px',
+            borderRadius: 'var(--radius-md)',
+            background: 'var(--bg-tertiary)',
+            border: '1px solid var(--border-subtle)',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#fff',
-            marginBottom: '1rem',
-            boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)'
+            color: '#60a5fa',
+            marginBottom: '1rem'
           }}>
-            <Sparkles size={24} />
+            <Lock size={20} />
           </div>
           <h1 style={{ fontSize: '1.75rem', marginBottom: '0.4rem' }}>Welcome Back</h1>
           <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
